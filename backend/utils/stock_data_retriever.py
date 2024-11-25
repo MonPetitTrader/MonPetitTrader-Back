@@ -16,7 +16,7 @@ headers = {
 
 symbols = ["BRK.A", "BRK.B", "TSM", "WMT", "JPM", "LLY", "V", "UNH", "XOM", "ORCL", "MA", "NVO", "PG", "HD", "JNJ", "BAC", "CRM", "ABBV", "CVX", "SAP", "KO", "MRK", "WFC", "TM", "BX", "ACN", "MS", "NOW", "MCD", "NVS", "SHEL", "DIS", "PM", "ABT", "BABA", "AXP", "IBM", "GS", "GE", "TMO", "CAT", "VZ", "RY", "DHR", "T", "HSBC", "BLK", "RTX", "HDB", "NEE", "SPGI", "PGR", "SYK", "LOW", "SCHW", "UBER", "UL", "ETN", "UNP", "PFE", "TTE", "MUFG", "PLTR", "KKR", "SHOP", "TJX", "BSX", "BHP", "COP", "C", "LMT", "FI", "ANET", "CB", "SONY", "BMY", "UPS", "BUD", "NKE", "MMC", "DE", "MDT", "BA", "PLD", "RIO", "IBN", "UBS", "TD", "SO", "MO", "APO", "DELL", "AMT", "SHW", "SMFG", "ELV", "ENB", "SPOT", "TT", "ICE"] 
 
-for cie in ["ABBV", "ABT"]: 
+for cie in symbols: 
     data = pd.read_html(f'https://stockanalysis.com/stocks/{cie}/history/', storage_options=headers)
     df = data[0]
     df.to_csv(f"{cie}.csv", index=False)

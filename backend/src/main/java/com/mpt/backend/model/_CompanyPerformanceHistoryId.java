@@ -8,9 +8,27 @@ public class _CompanyPerformanceHistoryId implements Serializable {
 	private String cieId;
 	private Date date;
 	
+    public _CompanyPerformanceHistoryId() {}
+	
 	public _CompanyPerformanceHistoryId(String cieId, Date ciePerformanceDate) {
 		this.cieId = cieId;
 		this.date = ciePerformanceDate;
+	}
+
+	public String getCieId() {
+		return cieId;
+	}
+
+	public void setCieId(String cieId) {
+		this.cieId = cieId;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	@Override

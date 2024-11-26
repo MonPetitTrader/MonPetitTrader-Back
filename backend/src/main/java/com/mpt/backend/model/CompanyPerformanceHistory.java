@@ -27,7 +27,8 @@ public class CompanyPerformanceHistory {
 	private float close;
 	
 	private int volume;
-
+	
+	
 	public String getCieId() {
 		return cieId;
 	}

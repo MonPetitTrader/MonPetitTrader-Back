@@ -9,26 +9,28 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-
 @Entity
 @IdClass(_CompanyPerformanceHistoryId.class)
-@Table(name="cie_performance_hist")
+@Table(name = "cie_performance_hist")
 public class CompanyPerformanceHistory {
 
 	@Id
 	private String cieId;
-	
+
 	@Id
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	
+
 	private float open;
-	
+
 	private float close;
-	
+
+	private float high;
+
+	private float low;
+
 	private int volume;
-	
-	
+
 	public String getCieId() {
 		return cieId;
 	}
@@ -61,6 +63,22 @@ public class CompanyPerformanceHistory {
 		this.close = close;
 	}
 
+	public float getHigh() {
+		return high;
+	}
+
+	public void setHigh(float high) {
+		this.high = high;
+	}
+
+	public float getLow() {
+		return low;
+	}
+
+	public void setLow(float low) {
+		this.low = low;
+	}
+
 	public int getVolume() {
 		return volume;
 	}
@@ -68,5 +86,5 @@ public class CompanyPerformanceHistory {
 	public void setVolume(int volume) {
 		this.volume = volume;
 	}
-	
+
 }

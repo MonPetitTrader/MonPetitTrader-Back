@@ -73,6 +73,8 @@ public class CsvImportService {
 				history.setOpen(Float.parseFloat(record.get("Open")));
 				history.setDate(df.parse(record.get("Date")));
 				history.setClose(Float.parseFloat(record.get("Close")));
+				history.setHigh(Float.parseFloat(record.get("High")));
+				history.setLow(Float.parseFloat(record.get("Low")));
 				history.setVolume(Integer.parseInt(record.get("Volume")));
 				companyPerformanceHistoryRepository.save(history);
 				} catch (ParseException e) {

@@ -3,7 +3,7 @@ import time
 import os
 from urllib.error import HTTPError
 
-def get_data():
+def get_data(cie: str):
     return pd.read_html(f'https://stockanalysis.com/stocks/{cie}/history/', storage_options=headers)
 
 headers = {    
@@ -25,13 +25,13 @@ symbols = ["BRK.A", "BRK.B", "TSM", "WMT", "JPM", "LLY", "V", "UNH", "XOM", "ORC
 
 for cie in symbols:
     try: 
-        data = get_data()
+        data = get_data(cie)
     except HTTPError as e:
         if e.code == 429:
             print("Too many requests, pausing")
             time.sleep(30)
             print("Retrying fetch")
-            data = get_data()
+            data = get_data(cie)
         else:
             print(f"HTTP Error : {e}, aborting")
             break

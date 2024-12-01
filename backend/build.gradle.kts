@@ -28,6 +28,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.h2database:h2:2.3.232")
 	implementation("org.apache.commons:commons-csv:1.12.0")
+	implementation("org.springframework.boot:spring-boot-starter-webflux:3.3.6")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	runtimeOnly("com.h2database:h2")

@@ -73,15 +73,17 @@ public class CsvImportService {
 				history.setOpen(Float.parseFloat(record.get("Open")));
 				history.setDate(df.parse(record.get("Date")));
 				history.setClose(Float.parseFloat(record.get("Close")));
+				history.setHigh(Float.parseFloat(record.get("High")));
+				history.setLow(Float.parseFloat(record.get("Low")));
 				history.setVolume(Integer.parseInt(record.get("Volume")));
 				companyPerformanceHistoryRepository.save(history);
-				logger.info("Data from {} retrieved", cieId);
 				} catch (ParseException e) {
 					logger.error("Error parsing date for record: {}", record, e);
 				} catch (DataIntegrityViolationException e) {
 					logger.error("Data integrity violation for record: {}", record, e);
 				}
 			}
+			logger.info("Data from {} retrieved", cieId);
 
 		} catch (IOException e) {
 			logger.error("Error reading file: {}", filePath, e);

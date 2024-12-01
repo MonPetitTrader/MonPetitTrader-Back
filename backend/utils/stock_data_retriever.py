@@ -1,5 +1,10 @@
 import pandas as pd
 import time
+import os
+from urllib.error import HTTPError
+
+def get_data(cie: str):
+    return pd.read_html(f'https://stockanalysis.com/stocks/{cie}/history/', storage_options=headers)
 
 headers = {    
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0",
@@ -14,11 +19,24 @@ headers = {
     "Priority": "u=0, i"
 }
 
+current_file_directory = os.path.dirname(os.path.abspath(__file__))
+
 symbols = ["BRK.A", "BRK.B", "TSM", "WMT", "JPM", "LLY", "V", "UNH", "XOM", "ORCL", "MA", "NVO", "PG", "HD", "JNJ", "BAC", "CRM", "ABBV", "CVX", "SAP", "KO", "MRK", "WFC", "TM", "BX", "ACN", "MS", "NOW", "MCD", "NVS", "SHEL", "DIS", "PM", "ABT", "BABA", "AXP", "IBM", "GS", "GE", "TMO", "CAT", "VZ", "RY", "DHR", "T", "HSBC", "BLK", "RTX", "HDB", "NEE", "SPGI", "PGR", "SYK", "LOW", "SCHW", "UBER", "UL", "ETN", "UNP", "PFE", "TTE", "MUFG", "PLTR", "KKR", "SHOP", "TJX", "BSX", "BHP", "COP", "C", "LMT", "FI", "ANET", "CB", "SONY", "BMY", "UPS", "BUD", "NKE", "MMC", "DE", "MDT", "BA", "PLD", "RIO", "IBN", "UBS", "TD", "SO", "MO", "APO", "DELL", "AMT", "SHW", "SMFG", "ELV", "ENB", "SPOT", "TT", "ICE"] 
 
-for cie in symbols: 
-    data = pd.read_html(f'https://stockanalysis.com/stocks/{cie}/history/', storage_options=headers)
+for cie in symbols:
+    try: 
+        data = get_data(cie)
+    except HTTPError as e:
+        if e.code == 429:
+            print("Too many requests, pausing")
+            time.sleep(30)
+            print("Retrying fetch")
+            data = get_data(cie)
+        else:
+            print(f"HTTP Error : {e}, aborting")
+            break
     df = data[0]
-    df.to_csv(f"{cie}.csv", index=False)
-    print(f"{cie} done")
+    saved_file_path = os.path.join(current_file_directory, f"data/{cie}.csv")
+    df.to_csv(saved_file_path, index=False)
+    print(f"{saved_file_path} written")
     time.sleep(1)

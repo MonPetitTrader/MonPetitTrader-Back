@@ -32,3 +32,7 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# Data fetching
+/utils/.venv
+/src/main/resources/data/*.csv

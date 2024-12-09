@@ -4,6 +4,7 @@ import os
 from urllib.error import HTTPError
 
 def get_data(cie: str):
+    # TODO : update with waiting decorator / proxy switching
     return pd.read_html(f'https://stockanalysis.com/stocks/{cie}/history/', storage_options=headers)
 
 headers = {    
@@ -20,6 +21,7 @@ headers = {
 }
 
 current_file_directory = os.path.dirname(os.path.abspath(__file__))
+project_root_directory = os.path.dirname(current_file_directory) #Warning if moving the present script file
 
 symbols = ["BRK.A", "BRK.B", "TSM", "WMT", "JPM", "LLY", "V", "UNH", "XOM", "ORCL", "MA", "NVO", "PG", "HD", "JNJ", "BAC", "CRM", "ABBV", "CVX", "SAP", "KO", "MRK", "WFC", "TM", "BX", "ACN", "MS", "NOW", "MCD", "NVS", "SHEL", "DIS", "PM", "ABT", "BABA", "AXP", "IBM", "GS", "GE", "TMO", "CAT", "VZ", "RY", "DHR", "T", "HSBC", "BLK", "RTX", "HDB", "NEE", "SPGI", "PGR", "SYK", "LOW", "SCHW", "UBER", "UL", "ETN", "UNP", "PFE", "TTE", "MUFG", "PLTR", "KKR", "SHOP", "TJX", "BSX", "BHP", "COP", "C", "LMT", "FI", "ANET", "CB", "SONY", "BMY", "UPS", "BUD", "NKE", "MMC", "DE", "MDT", "BA", "PLD", "RIO", "IBN", "UBS", "TD", "SO", "MO", "APO", "DELL", "AMT", "SHW", "SMFG", "ELV", "ENB", "SPOT", "TT", "ICE"] 
 
@@ -30,13 +32,13 @@ for cie in symbols:
         if e.code == 429:
             print("Too many requests, pausing")
             time.sleep(30)
-            print("Retrying fetch")
+            print(f"Retrying fetch{cie}")
             data = get_data(cie)
         else:
-            print(f"HTTP Error : {e}, aborting")
+            print(f"HTTP Error : {e}, aborting") 
             break
     df = data[0]
-    saved_file_path = os.path.join(current_file_directory, f"data/{cie}.csv")
+    saved_file_path = os.path.join(project_root_directory, f"src/main/resources/data/{cie}.csv")
     df.to_csv(saved_file_path, index=False)
     print(f"{saved_file_path} written")
     time.sleep(1)

@@ -42,7 +42,7 @@ public class CsvImportService {
         logger.info("CsvImportService instantiated");
     }
 
-	private static final String CSV_FOLDER_PATH = "./utils/data";
+	private static final String CSV_FOLDER_PATH = "./src/main/resources/data";
 
 	@PostConstruct
 	public void importCsvData() {
